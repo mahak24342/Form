@@ -12,6 +12,7 @@ export default function Step3() {
       const file = e.target.files[0];
       setFileName(file.name);
       localStorage.setItem("file", file.name);
+     setFileName("");
     }
   };
 

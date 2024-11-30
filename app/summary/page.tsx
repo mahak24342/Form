@@ -14,13 +14,16 @@ export default function Summary() {
   const router = useRouter();
 
   useEffect(() => {
-    setData({
-      name: localStorage.getItem("name") || "",
-      address: localStorage.getItem("address") || "",
-      country: localStorage.getItem("country") || "",
-      dob: localStorage.getItem("dob") || "",
-      file: localStorage.getItem("file") || "No file uploaded",
-    });
+    // Make sure this code only runs in the client-side environment
+    if (typeof window !== "undefined") {
+      setData({
+        name: localStorage.getItem("name") || "",
+        address: localStorage.getItem("address") || "",
+        country: localStorage.getItem("country") || "",
+        dob: localStorage.getItem("dob") || "",
+        file: localStorage.getItem("file") || "No file uploaded",
+      });
+    }
   }, []);
 
   const handleEdit = (step: string) => {
@@ -31,7 +34,7 @@ export default function Summary() {
     alert("Form submitted successfully!");
     // Add submission logic here
 
-    router.push('/done');
+    router.push("/done");
   };
 
   return (

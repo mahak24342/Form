@@ -10,6 +10,8 @@ export default function Step2() {
   const handleNext = () => {
     localStorage.setItem("country", country);
     localStorage.setItem("dob", dob);
+    setDob("");
+    setCountry("");
     router.push("/step3");
   };
 

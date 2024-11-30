@@ -10,6 +10,8 @@ export default function Step1() {
   const handleNext = () => {
     localStorage.setItem("name", name);
     localStorage.setItem("address", address);
+    setName("");
+    setAddress("");
     router.push("/step2");
   };
 
