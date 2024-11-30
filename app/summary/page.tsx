@@ -32,8 +32,10 @@ export default function Summary() {
 
   const handleSubmit = () => {
     alert("Form submitted successfully!");
-    // Add submission logic here
-
+    // Clear all user data from localStorage
+    localStorage.clear();
+    
+    // After clearing localStorage, navigate to the 'done' page
     router.push("/done");
   };
 

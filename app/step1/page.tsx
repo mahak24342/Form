@@ -1,15 +1,25 @@
-"use client"
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Step1() {
   const router = useRouter();
-  const [name, setName] = useState(localStorage.getItem("name") || "");
-  const [address, setAddress] = useState(localStorage.getItem("address") || "");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+
+  // Load data from localStorage once the component is mounted
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setName(localStorage.getItem("name") || "");
+      setAddress(localStorage.getItem("address") || "");
+    }
+  }, []);
 
   const handleNext = () => {
-    localStorage.setItem("name", name);
-    localStorage.setItem("address", address);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("name", name);
+      localStorage.setItem("address", address);
+    }
     setName("");
     setAddress("");
     router.push("/step2");

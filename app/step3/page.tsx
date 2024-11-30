@@ -1,18 +1,25 @@
-"use client"
-
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Step3() {
   const router = useRouter();
-  const [fileName, setFileName] = useState(localStorage.getItem("file") || "");
+  const [fileName, setFileName] = useState("");
+
+  // Load the file name from localStorage when the component mounts
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFileName(localStorage.getItem("file") || "");
+    }
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setFileName(file.name);
-      localStorage.setItem("file", file.name);
-     setFileName("");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("file", file.name);
+      }
     }
   };
 

@@ -1,15 +1,26 @@
-"use client"
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Step2() {
   const router = useRouter();
-  const [country, setCountry] = useState(localStorage.getItem("country") || "");
-  const [dob, setDob] = useState(localStorage.getItem("dob") || "");
+  const [country, setCountry] = useState("");
+  const [dob, setDob] = useState("");
+
+  // Load data from localStorage only in the browser
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCountry(localStorage.getItem("country") || "");
+      setDob(localStorage.getItem("dob") || "");
+    }
+  }, []);
 
   const handleNext = () => {
-    localStorage.setItem("country", country);
-    localStorage.setItem("dob", dob);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("country", country);
+      localStorage.setItem("dob", dob);
+    }
+
     setDob("");
     setCountry("");
     router.push("/step3");
